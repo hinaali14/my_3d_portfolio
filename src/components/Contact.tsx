@@ -18,7 +18,6 @@ const Contact = () => {
       },
     });
 
-    // Animate title from bottom
     contactTimeline.fromTo(
       ".contact-section h3",
       {
@@ -33,7 +32,6 @@ const Contact = () => {
       }
     );
 
-    // Animate contact boxes with stagger from bottom
     contactTimeline.fromTo(
       ".contact-box",
       {
@@ -50,7 +48,6 @@ const Contact = () => {
       "-=0.4"
     );
 
-    // Clean up
     return () => {
       contactTimeline.kill();
     };
@@ -60,21 +57,33 @@ const Contact = () => {
     <div className="contact-section section-container" id="contact">
       <div className="contact-container">
         <h3>{config.developer.fullName}</h3>
+
         <div className="contact-flex">
+
+          {/* Email & Location */}
           <div className="contact-box">
             <h4>Email</h4>
+
             <p>
-              <a href={`mailto:${config.contact.email}`} data-cursor="disable">
+              <a
+                href={`mailto:${config.contact.email}`}
+                data-cursor="disable"
+              >
                 {config.contact.email}
               </a>
             </p>
+
             <h4>Location</h4>
+
             <p>
               <span>{config.social.location}</span>
             </p>
           </div>
+
+          {/* Social Links */}
           <div className="contact-box">
-            <h4>Social</h4>
+            <h4>Connect</h4>
+
             <a
               href={config.contact.github}
               target="_blank"
@@ -82,8 +91,9 @@ const Contact = () => {
               data-cursor="disable"
               className="contact-social"
             >
-              Github <MdArrowOutward />
+              GitHub <MdArrowOutward />
             </a>
+
             <a
               href={config.contact.linkedin}
               target="_blank"
@@ -91,44 +101,23 @@ const Contact = () => {
               data-cursor="disable"
               className="contact-social"
             >
-              Linkedin <MdArrowOutward />
-            </a>
-            <a
-              href={config.contact.twitter}
-              target="_blank"
-              rel="noopener noreferrer"
-              data-cursor="disable"
-              className="contact-social"
-            >
-              Twitter <MdArrowOutward />
-            </a>
-            <a
-              href={config.contact.facebook}
-              target="_blank"
-              rel="noopener noreferrer"
-              data-cursor="disable"
-              className="contact-social"
-            >
-              Facebook <MdArrowOutward />
-            </a>
-            <a
-              href={config.contact.instagram}
-              target="_blank"
-              rel="noopener noreferrer"
-              data-cursor="disable"
-              className="contact-social"
-            >
-              Instagram <MdArrowOutward />
+              LinkedIn <MdArrowOutward />
             </a>
           </div>
+
+          {/* Copyright */}
           <div className="contact-box">
             <h2>
-              Designed and Developed <br /> by <span>{config.developer.fullName}</span>
+              Designed and Developed
+              <br />
+              by <span>{config.developer.fullName}</span>
             </h2>
+
             <h5>
               <MdCopyright /> {new Date().getFullYear()}
             </h5>
           </div>
+
         </div>
       </div>
     </div>

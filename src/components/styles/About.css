@@ -99,3 +99,28 @@
     line-height: 2.7rem;
   }
 }
+.about-photo {
+  margin-top: 30px;
+  display: flex;
+  justify-content: center;
+}
+
+.about-photo img {
+  width: 180px;
+  height: 180px;
+  object-fit: cover;
+  border-radius: 50%;
+  border: 2px solid var(--accentColor);
+}
+
+@media only screen and (min-width: 1025px) {
+  .about-photo {
+    justify-content: flex-start;
+    margin-top: 35px;
+  }
+
+  .about-photo img {
+    width: 200px;
+    height: 200px;
+  }
+}

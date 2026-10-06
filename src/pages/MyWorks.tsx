@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import { FaGithub, FaYoutube } from "react-icons/fa6";
+import { FaGithub } from "react-icons/fa6";
 import { config } from "../config";
 import ProjectModal from "../components/ProjectModal";
 import "./MyWorks.css";
@@ -18,16 +18,14 @@ interface Project {
 }
 
 const MyWorks = () => {
-  const [selectedProject, setSelectedProject] = useState<Project | null>(null);
-  const [startWithVideo, setStartWithVideo] = useState(false);
+  const [selectedProject, setSelectedProject] =
+    useState<Project | null>(null);
 
   useEffect(() => {
-    // Enable body scrolling when MyWorks page is loaded
     document.body.style.overflow = "auto";
     document.body.style.overflowY = "auto";
 
     return () => {
-      // Re-disable body scrolling when leaving the page to preserve homepage animations
       document.body.style.overflow = "hidden";
       document.body.style.overflowY = "hidden";
     };
@@ -39,10 +37,15 @@ const MyWorks = () => {
         <Link to="/" className="back-button" data-cursor="disable">
           ← Back to Home
         </Link>
+
         <h1>
-          All <span>Works</span>
+          My <span>Projects</span>
         </h1>
-        <p>A collection of all my projects and creations</p>
+
+        <p>
+          A collection of projects I have built while learning and
+          improving my development skills.
+        </p>
       </div>
 
       <div className="myworks-grid">
@@ -51,23 +54,42 @@ const MyWorks = () => {
             className="myworks-card"
             key={project.id}
             data-cursor="disable"
-            onClick={() => {
-              setSelectedProject(project);
-              setStartWithVideo(false);
-            }}
+            onClick={() => setSelectedProject(project)}
             style={{ cursor: "pointer" }}
           >
-            <div className="myworks-card-number">0{index + 1}</div>
-            <div className="myworks-card-image">
-              <img src={project.image} alt={project.title} />
+            <div className="myworks-card-number">
+              {String(index + 1).padStart(2, "0")}
             </div>
+
+            <div className="myworks-card-image">
+              <img
+                src={project.image}
+                alt={project.title}
+              />
+            </div>
+
             <div className="myworks-card-info">
               <h3>{project.title}</h3>
-              <p className="myworks-card-category">{project.category}</p>
-              <p className="myworks-card-description">{project.description}</p>
-              <p className="myworks-card-tech">{project.technologies}</p>
-              <div className="myworks-card-links" onClick={(e) => e.stopPropagation()}>
-                {project.githubLink && (
+
+              <p className="myworks-card-category">
+                {project.category}
+              </p>
+
+              <p className="myworks-card-description">
+                {project.description}
+              </p>
+
+              <p className="myworks-card-tech">
+                {Array.isArray(project.technologies)
+                  ? project.technologies.join(" • ")
+                  : project.technologies}
+              </p>
+
+              {project.githubLink && (
+                <div
+                  className="myworks-card-links"
+                  onClick={(e) => e.stopPropagation()}
+                >
                   <a
                     href={project.githubLink}
                     target="_blank"
@@ -77,22 +99,8 @@ const MyWorks = () => {
                   >
                     <FaGithub /> GitHub
                   </a>
-                )}
-                {project.youtubeLink && (
-                  <button
-                    onClick={(e) => {
-                      e.stopPropagation();
-                      setSelectedProject(project);
-                      setStartWithVideo(true);
-                    }}
-                    className="project-link youtube-link"
-                    title="Watch YouTube Video"
-                    style={{ border: "none" }}
-                  >
-                    <FaYoutube /> Watch Video
-                  </button>
-                )}
-              </div>
+                </div>
+              )}
             </div>
           </div>
         ))}
@@ -101,11 +109,8 @@ const MyWorks = () => {
       {selectedProject && (
         <ProjectModal
           project={selectedProject}
-          startWithVideo={startWithVideo}
-          onClose={() => {
-            setSelectedProject(null);
-            setStartWithVideo(false);
-          }}
+          startWithVideo={false}
+          onClose={() => setSelectedProject(null)}
         />
       )}
     </div>

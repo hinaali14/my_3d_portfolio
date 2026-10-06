@@ -7,6 +7,7 @@ import "./styles/Navbar.css";
 import { config } from "../config";
 
 gsap.registerPlugin(ScrollTrigger);
+
 export let lenis: Lenis | null = null;
 
 const Navbar = () => {
@@ -31,19 +32,25 @@ const Navbar = () => {
       lenis?.raf(time);
       requestAnimationFrame(raf);
     }
+
     requestAnimationFrame(raf);
 
     // Handle navigation links
-    let links = document.querySelectorAll(".header ul a");
+    const links = document.querySelectorAll(".header ul a");
+
     links.forEach((elem) => {
-      let element = elem as HTMLAnchorElement;
+      const element = elem as HTMLAnchorElement;
+
       element.addEventListener("click", (e) => {
         if (window.innerWidth > 1024) {
           e.preventDefault();
-          let elem = e.currentTarget as HTMLAnchorElement;
-          let section = elem.getAttribute("data-href");
+
+          const link = e.currentTarget as HTMLAnchorElement;
+          const section = link.getAttribute("data-href");
+
           if (section && lenis) {
             const target = document.querySelector(section) as HTMLElement;
+
             if (target) {
               lenis.scrollTo(target, {
                 offset: 0,
@@ -64,12 +71,16 @@ const Navbar = () => {
       lenis?.destroy();
     };
   }, []);
+
   return (
     <>
       <div className="header">
+        {/* Hena's initials */}
         <a href="/#" className="navbar-title" data-cursor="disable">
-          MA
+          HA
         </a>
+
+        {/* Email */}
         <a
           href={`mailto:${config.contact.email}`}
           className="navbar-connect"
@@ -77,17 +88,21 @@ const Navbar = () => {
         >
           {config.contact.email}
         </a>
+
+        {/* Navigation */}
         <ul>
           <li>
             <a data-href="#about" href="#about">
               <HoverLinks text="ABOUT" />
             </a>
           </li>
+
           <li>
             <a data-href="#work" href="#work">
               <HoverLinks text="WORK" />
             </a>
           </li>
+
           <li>
             <a data-href="#contact" href="#contact">
               <HoverLinks text="CONTACT" />
@@ -96,6 +111,7 @@ const Navbar = () => {
         </ul>
       </div>
 
+      {/* Background decorative elements */}
       <div className="landing-circle1"></div>
       <div className="landing-circle2"></div>
       <div className="nav-fade"></div>
